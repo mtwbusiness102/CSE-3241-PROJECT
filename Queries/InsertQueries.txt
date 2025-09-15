@@ -1,0 +1,165 @@
+INSERT INTO PROCEDURE 
+VALUES
+    (1, 200, 'Cleaning', 1),
+    (2, 500, 'Filling', 1),
+    (3, 300, 'Extraction', 2),
+    (4, 150, 'Whitening', 2),
+    (5, 400, 'Root Canal', 3),
+    (6, 100, 'Consultation', 3),
+    (7, 350, 'Crown', 3),
+    (8, 450, 'Implant', 3),
+    (9, 275, 'Sealant', 4),
+    (10, 100, 'Consultation', 5),
+    (11, 500, 'Filling', 5),
+    (12, 500, 'Filling', 4),
+    (13, 500, 'Filling', 2);
+
+INSERT INTO PAYMENT_INFO 
+VALUES
+    (1, '4111111111111111', '123', 1),
+    (2, '5500000000000004', '456', 4),
+    (3, '340000000000009', '789', 6),
+    (4, '6011000000000004', '321', 3),
+    (5, '4111111111111234', '654', 8),
+    (6, '5500550055005500', '987', 9),
+    (7, '340000000000001', '432', 10),
+    (8, '6011000000000010', '234', 7),
+    (9, '4111111111222222', '567', 5),
+    (10, '5500000000006789', '891', 2);
+
+INSERT INTO PERSON
+VALUES 
+(1, 'John', 'Doe', '5551234567', 'jdoe@example.com', '123 Elm St', '1980-02-15', 'Male', TRUE, '2023-01-15', TRUE, 'Dentist', '2020-03-01'),
+(2, 'Jane', 'Smith', '5552345678', 'jsmith@example.com', '456 Oak St', '1985-07-22', 'Female', TRUE, '2022-11-12', TRUE, 'Dental Hygienist', '2021-06-10'),
+(3, 'Emily', 'Davis', '5553456789', 'edavis@example.com', '789 Maple Ave', '1992-05-10', 'Female', TRUE, '2023-02-25', FALSE, NULL, NULL),
+(4, 'Michael', 'Johnson', '5554567890', 'mjohnson@example.com', '321 Pine St', '1978-08-18', 'Male', FALSE, NULL, TRUE, 'Receptionist', '2019-08-05'),
+(101, 'Sarah', 'Smilow', '5555678901', 'swillow@example.com', '654 Cedar St', '1990-11-30', 'Female', TRUE, '2023-04-08', TRUE, 'Dentist', '2018-05-15'),
+(6, 'David', 'Brown', '5556789012', 'dbrown@example.com', '987 Birch Blvd', '1983-12-20', 'Male', FALSE, NULL, TRUE, 'Dental Assistant', '2022-01-12'),
+(7, 'Olivia', 'Martinez', '5557890123', 'omartinez@example.com', '543 Chestnut St', '2000-06-15', 'Female', TRUE, '2023-03-05', FALSE, NULL, NULL),
+(8, 'Sophia', 'Lopez', '5558901234', 'slopez@example.com', '678 Walnut Ave', '1996-09-25', 'Female', TRUE, '2023-06-18', TRUE, 'Receptionist', '2021-09-20'),
+(9, 'James', 'Taylor', '5559012345', 'jtaylor@example.com', '231 Oakridge Dr', '1989-10-09', 'Male', TRUE, '2023-07-07', TRUE, 'Dental Hygienist', '2019-04-28'),
+(10, 'Ava', 'Anderson', '5550123456', 'aanderson@example.com', '345 Lakeview Rd', '1975-03-17', 'Female', FALSE, NULL, TRUE, 'Office Manager', '2017-10-12'),
+(11, 'Ella', 'Thompson', '5551236789', 'ethompson@example.com', '890 Willow St', '1995-01-05', 'Female', TRUE, '2023-09-01', FALSE, NULL, NULL),
+(12, 'William', 'White', '5552347890', 'wwhite@example.com', '432 Poplar St', '1988-02-21', 'Male', FALSE, NULL, TRUE, 'Accountant', '2020-04-17'),
+(13, 'Mia', 'Gonzalez', '5553458901', 'mgonzalez@example.com', '765 Spruce Ave', '1994-11-11', 'Female', TRUE, '2023-10-03', TRUE, 'Dental Assistant', '2022-08-16');
+
+INSERT INTO LICENSURE (License_ID, Licensure_Type, Person_ID, Issuing_Authority, Expiration_Date)
+VALUES
+    (1001, 'Dental License', 101, 'State Dental Board', '2025-07-15'),
+    (1002, 'Orthodontics License', 102, 'National Dental Council', '2026-09-10'),
+    (1003, 'Periodontics License', 103, 'State Health Department', '2024-11-20'),
+    (1004, 'Pediatric Dental License', 104, 'National Dental Association', '2025-03-30'),
+    (1005, 'Endodontics License', 105, 'Dental Regulatory Authority', '2027-05-25');
+
+INSERT INTO INSURANCE (Insurance_Policy_ID, Insurance_Type, Insurance_Company, Coverage_Details, Phone, Email, Person_ID)
+VALUES
+    (5001, 'Dental Health', 'Delta Dental', 'Covers 80% of preventive and basic services', '123-456-7890', 'contact@deltadental.com', 101),
+    (5002, 'Orthodontic Care', 'Blue Cross Blue Shield', 'Covers 70% of orthodontic procedures', '123-555-7890', 'support@bcbs.com', 102),
+    (5003, 'Dental Health', 'Aetna', 'Covers 90% of preventive services', '123-789-4561', 'info@aetna.com', 103),
+    (5004, 'Comprehensive Dental', 'United Healthcare', 'Full coverage for preventive and major services', '123-456-3333', 'service@uhc.com', 104),
+    (5005, 'Dental and Vision', 'Cigna', '70% coverage for dental and vision services', '123-222-7890', 'contact@cigna.com', 105);
+
+INSERT INTO MEDICATIONS (medication_id, name, dosage) 
+VALUES
+    (201, 'Aspirin', '50mg'),
+    (202, 'Metformin', '500mg'),
+    (203, 'Lisinopril', '10mg'),
+    (204, 'Ibuprofen', '200mg');
+
+INSERT INTO PATIENT_MEDICATIONS (patient_id, medication_id, date_prescribed) 
+VALUES
+    (101, 201, '2024-01-10'),
+    (102, 202, '2024-02-15'),
+    (103, 203, '2024-03-20'),
+    (101, 204, '2024-04-05'),
+    (104, 202, '2024-06-01');
+
+
+INSERT INTO REVENUE (patient_id, revenue_amount, date_of_service) 
+VALUES
+    (101, 150.50, '2024-01-12'),
+    (102, 200.75, '2024-02-18'),
+    (103, 350.00, '2024-03-22'),
+    (104, 120.30, '2024-06-05');
+
+INSERT INTO INSURANCE_PLANS (insurance_plan_id, plan_name) 
+VALUES
+    (1, 'HealthPlan A'),
+    (2, 'HealthPlan B'),
+    (3, 'HealthPlan C');
+
+INSERT INTO APPOINTMENT (Appointment_ID,  Appointment_Date,  Supervising_Dentist, 
+Appointment_Time, Procedure_Record_ID, Billing_Record, Status) 
+VALUES 
+(1, '2024-11-10', 101, '09:00:00', 201, 301, 'Scheduled'), 
+(2, '2024-11-11', 102, '10:30:00', 202, 302, 'Scheduled'), 
+(3, '2024-11-12', 103, '11:00:00', 203, 303, 'Completed'), 
+(4, '2024-11-13', 101, '14:00:00', 204, 304, 'Scheduled'), 
+(5, '2024-11-14', 102, '15:30:00', 205, 305, 'Canceled'), 
+(6, '2024-11-15', 103, '08:00:00', 206, 306, 'Scheduled'), 
+(7, '2024-11-16', 101, '09:45:00', 207, 307, 'Completed'), 
+(8, '2024-11-17', 102, '10:15:00', 208, 308, 'Scheduled'), 
+(9, '2024-11-18', 103, '13:30:00', 209, 309, 'Rescheduled'), 
+(10, '2024-11-19', 101, '16:00:00', 210, 310, 'Scheduled'), 
+(11, '2024-11-20', 102, '11:30:00', 211, 311, 'Scheduled'), 
+(12, '2024-11-21', 103, '12:45:00', 212, 312, 'Completed');
+
+INSERT INTO MEDICAL_HISTORY (Allergy_Info, Medications, Demographics, Patient_ID, Health_Risks, Health_Status, Last_x_ray_date)
+VALUES 
+    ('Peanuts', 'Ibuprofen', 'Male, Age 34', 1, 'High Blood Pressure', 'Stable', '2024-05-01'),
+    ('Penicillin', 'Aspirin', 'Female, Age 28', 2, 'Diabetes', 'Controlled', '2024-06-10'),
+    ('Latex', 'None', 'Male, Age 45', 3, 'Asthma', 'Mild', '2024-07-12'),
+    ('None', 'Amoxicillin', 'Female, Age 30', 4, 'Heart Disease', 'Under Treatment', '2024-08-05'),
+    ('Shellfish', 'Metformin', 'Male, Age 52', 5, 'High Cholesterol', 'Stable', '2024-09-02'),
+    ('Bee Stings', 'Ibuprofen', 'Female, Age 25', 6, 'Anemia', 'Improving', '2024-09-15'),
+    ('None', 'Lisinopril', 'Male, Age 60', 7, 'Diabetes', 'Controlled', '2024-10-18'),
+    ('Gluten', 'None', 'Female, Age 40', 8, 'Asthma', 'Mild', '2024-10-22'),
+    ('None', 'Atorvastatin', 'Male, Age 50', 9, 'Heart Disease', 'Stable', '2024-11-01'),
+    ('Nuts', 'Metformin', 'Female, Age 33', 10, 'Diabetes', 'Under Treatment', '2024-11-10'),
+    ('None', 'None', 'Male, Age 37', 11, 'High Blood Pressure', 'Stable', '2024-11-15'),
+    ('Penicillin', 'Amoxicillin', 'Female, Age 29', 12, 'Asthma', 'Improving', '2024-11-20');
+
+INSERT INTO DEPARTMENT (Department_ID, Location, Department_Name) 
+VALUES 
+(1, 'First Floor - North Wing', 'General Dentistry'), 
+(2, 'Second Floor - East Wing', 'Oral Surgery'), 
+(3, 'Third Floor - West Wing', 'Orthodontics'), 
+(4, 'First Floor - South Wing', 'Pediatric Dentistry'), 
+(5, 'Ground Floor - Main Hall', 'Radiology'), 
+(6, 'Second Floor - South Wing', 'Endodontics'), 
+(7, 'Third Floor - East Wing', 'Periodontics'), 
+(8, 'Ground Floor - West Wing', 'Prosthodontics'), 
+(9, 'First Floor - East Wing', 'Cosmetic Dentistry'), 
+(10, 'Third Floor - North Wing', 'Oral Medicine'), 
+(11, 'Second Floor - Main Hall', 'Emergency Dentistry'), 
+(12, 'First Floor - Main Hall', 'Dental Hygiene');
+
+INSERT INTO INVOICE 
+VALUES 
+(1, 200.0, 100.0, 'Health', 100.0, '2023-07-01', 0.0, 'Paid', 1, '2023-08-01', 1);
+
+INSERT INTO INVOICE 
+VALUES 
+(2, 300.0, 150.0, 'Dental', 150.0, '2023-07-02', 50.0, 'Unpaid', 2, '2023-08-02', 2);
+
+INSERT INTO PAYMENT
+VALUES (1, 100.0, '2023-07-01', 'Credit Card', 'Completed');
+
+INSERT INTO PAYMENT
+VALUES (2, 150.0, '2023-07-02', 'Cash', 'Pending');
+
+INSERT INTO PROCEDURE_RECORD 
+VALUES (1, 1, 1, 101, 1),
+(2, 2, 1, 101, 2),
+(3, 3, 1, 105, 6),
+(4, 4, 1, 101, 3),
+(5, 5, 1, 103, 5),
+(6, 6, 1, 101, 6);
+
+INSERT INTO Insurance_Company
+VALUES 
+    (1, 'Health Assurance Inc.', 'contact@healthassurance.com'),
+    (2, 'Dental Cover Co.','support@dentalcover.com'),
+    (3, 'LifeSecure Insurance', 'info@lifesecure.com');
+
+

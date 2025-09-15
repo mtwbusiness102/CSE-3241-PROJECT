@@ -1,0 +1,57 @@
+-- Insert statements for PERSON table
+INSERT INTO PERSON (Person_ID, First_Name, Last_Name, Phone, Email, Address, Date_of_Birth, Gender, Pflag, Signed_HIPAA_Form_Date, EFlag, Job_Position, Date_Of_Hire)
+VALUES
+(21, 'John', 'Doe', '5551234567', 'jdoe@example.com', '123 Elm St', '1980-02-15', 'Male', TRUE, '2023-01-15', TRUE, 'Dentist', '2020-03-01'),
+(22, 'Jane', 'Smith', '5552345678', 'jsmith@example.com', '456 Oak St', '1985-07-22', 'Female', TRUE, '2022-11-12', TRUE, 'Dental Hygienist', '2021-06-10'),
+(23, 'Emily', 'Davis', '5553456789', 'edavis@example.com', '789 Maple Ave', '1992-05-10', 'Female', TRUE, '2023-02-25', FALSE, NULL, NULL),
+(24, 'Michael', 'Johnson', '5554567890', 'mjohnson@example.com', '321 Pine St', '1978-08-18', 'Male', FALSE, NULL, TRUE, 'Receptionist', '2019-08-05');
+
+-- Insert statements for LICENSURE table (related to PERSON)
+INSERT INTO LICENSURE (License_ID, Licensure_Type, Person_ID, Issuing_Authority, Expiration_Date)
+VALUES
+(101, 'Dental License', 1, 'State Dental Board', '2025-12-31'),
+(102, 'Hygienist License', 2, 'State Dental Board', '2024-11-30');
+
+-- Insert statements for PROCEDURE_RECORD table (child of PERSON)
+INSERT INTO PROCEDURE_RECORD (Procedure_Record_ID, Appointment_ID, Procedure_ID, Supervising_Dentist_ID, Units_Performed)
+VALUES
+(201, 10, 5, 1, 2),
+(202, 11, 6, 2, 1);
+
+-- Select data to confirm inserts
+SELECT * FROM PERSON;
+SELECT * FROM LICENSURE;
+SELECT * FROM PROCEDURE_RECORD;
+
+-- Delete statements to clean up data in reverse order
+-- Deleting from PROCEDURE_RECORD (child table)
+DELETE FROM PROCEDURE_RECORD WHERE Procedure_Record_ID IN (201, 202);
+
+-- Deleting from LICENSURE (related table)
+DELETE FROM LICENSURE WHERE License_ID IN (101, 102);
+
+-- Deleting from PERSON (parent table)
+DELETE FROM PERSON WHERE Person_ID IN (21, 22, 23, 24);
+
+-- Select data to confirm deletions
+SELECT * FROM PERSON;
+SELECT * FROM LICENSURE;
+SELECT * FROM PROCEDURE_RECORD;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,162 @@
+CREATE TABLE PROCEDURE
+(Procedure_ID INT UNIQUE NOT NULL CHECK (Procedure_ID > 0),
+Per_Unit_Charge INT NOT NULL,
+Procedure_Name VARCHAR(20),
+Procedure_Record_ID INT,
+PRIMARY KEY (Procedure_ID),
+FOREIGN KEY (Procedure_Record_ID) REFERENCES PROCEDURE_RECORD(Procedure_Record_ID));
+    
+CREATE TABLE PAYMENT_INFO
+(Payment_Info_ID INT NOT NULL CHECK (Payment_Info_ID > 0),
+Card_Number VARCHAR(16),
+Security_Code VARCHAR(4),
+Person_ID INT,
+PRIMARY KEY (Payment_Info_ID),
+FOREIGN KEY (Person_ID) REFERENCES PERSON(Person_ID));
+    
+CREATE TABLE PERSON
+(Person_ID INT NOT NULL CHECK (Person_ID > 0),
+First_Name VARCHAR(20),
+Last_Name VARCHAR(20),
+Phone VARCHAR(10),
+Email VARCHAR(20),
+Address VARCHAR (30),
+Date_of_Birth DATE,
+Gender VARCHAR(10),
+Pflag BOOL,
+Signed_HIPAA_Form_Date DATE,
+EFlag BOOL,
+Job_Position VARCHAR(20),
+Date_Of_Hire DATE,
+PRIMARY KEY (Person_ID));
+
+
+CREATE TABLE LICENSURE (
+    License_ID INT PRIMARY KEY,
+    Licensure_Type VARCHAR(50),
+    Person_ID INT,
+    Issuing_Authority VARCHAR(100),
+    Expiration_Date DATE,
+    FOREIGN KEY (Person_ID) REFERENCES PERSON(Person_ID)
+);
+
+
+
+CREATE TABLE INSURANCE (
+    Insurance_Policy_ID INT PRIMARY KEY,
+    Insurance_Type VARCHAR(50),
+    Insurance_Company VARCHAR(100),
+    Coverage_Details TEXT,
+    Phone VARCHAR(20),
+    Email VARCHAR(50),
+    Person_ID INT,
+    FOREIGN KEY (Person_ID) REFERENCES PERSON(Person_ID)
+);
+
+CREATE TABLE MEDICATIONS (
+    medication_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    dosage VARCHAR(50)
+);
+
+CREATE TABLE PATIENT_MEDICATIONS (
+    patient_id INT,
+    medication_id INT,
+    date_prescribed DATE,
+    FOREIGN KEY (patient_id) REFERENCES PERSON(Person_ID),
+    FOREIGN KEY (medication_id) REFERENCES MEDICATIONS(medication_id)
+);
+
+
+CREATE TABLE REVENUE (
+    patient_id INT,
+    revenue_amount DECIMAL(10, 2),
+    date_of_service DATE,
+    FOREIGN KEY (patient_id) REFERENCES PERSON(Person_ID)
+);
+
+
+CREATE TABLE INSURANCE_PLANS (
+    insurance_plan_id INT PRIMARY KEY,
+    plan_name VARCHAR(100)
+);
+
+
+CREATE TABLE APPOINTMENT (
+Appointment_ID INT PRIMARY KEY, 
+Appointment_Date DATE, 
+Supervising_Dentist INT, 
+Appointment_Time TIME, 
+Procedure_Record_ID INT, 
+Billing_Record INT, 
+Status VARCHAR(50), 
+FOREIGN KEY (Supervising_Dentist) REFERENCES EMPLOYEE(Employee_ID), 
+FOREIGN KEY (Procedure_Record_ID) REFERENCES PROCEDURE_RECORD(Procedure_Record_ID), FOREIGN KEY (Billing_Record) REFERENCES BILLING_RECORD(Billing_Record_ID)
+ ); 
+
+CREATE TABLE MEDICAL_HISTORY (
+Allergy_Info TEXT, 
+Medications TEXT, 
+Demographics TEXT,
+Patient_ID INT, 
+Health_Risks TEXT,
+Health_Status TEXT, 
+Last_x_ray_date DATE, 
+FOREIGN KEY (Patient_ID) REFERENCES PATIENT(Patient_ID) 
+); 
+
+CREATE TABLE DEPARTMENT (
+Department_ID INT PRIMARY KEY, 
+Location VARCHAR(100), 
+Department_Name VARCHAR(100) 
+);
+
+
+CREATE TABLE INVOICE (
+    Invoice_ID INT UNIQUE NOT NULL CHECK (Invoice_ID > 0),
+    Total REAL NOT NULL CHECK (Total >= 0),
+    Amount_Covered_by_Insurance REAL CHECK (Amount_Covered_by_Insurance >= 0),
+    Insurance_Type VARCHAR(15),
+    Amount_Paid_by_Patient REAL CHECK (Amount_Paid_by_Patient >= 0),
+    Date_of_Billing DATE NOT NULL,
+    Amount_Due REAL CHECK (Amount_Due >= 0),
+    Invoice_Status VARCHAR(10),
+    Appointment_ID INT NOT NULL CHECK (Appointment_ID > 0),
+    Invoice_Due_Date DATE,
+    Procedure_Record_ID INT CHECK (Procedure_Record_ID > 0),
+    PRIMARY KEY (Invoice_ID),
+    FOREIGN KEY (Appointment_ID) REFERENCES APPOINTMENT(Appointment_ID),
+    FOREIGN KEY (Procedure_Record_ID) REFERENCES PROCEDURE_RECORD(Procedure_Record_ID)
+);
+
+CREATE TABLE PAYMENT (
+    Payment_ID INT UNIQUE NOT NULL CHECK (Payment_ID > 0),
+    Amount_Paid REAL NOT NULL CHECK (Amount_Paid >= 0),
+    Date DATE NOT NULL,
+    Payment_Type VARCHAR(10) NOT NULL,
+    Payment_Status VARCHAR(10),
+    PRIMARY KEY (Payment_ID)
+);
+
+CREATE TABLE PROCEDURE_RECORD (
+    Procedure_Record_ID INT PRIMARY KEY,
+    Appointment_ID INT NOT NULL,
+    Procedure_ID INT NOT NULL,
+    Supervising_Dentist_ID INT NOT NULL,
+    Units_Performed INT NOT NULL CHECK (Units_Performed > 0),
+    FOREIGN KEY (Appointment_ID) REFERENCES APPOINTMENT(Appointment_ID),
+    FOREIGN KEY (Procedure_ID) REFERENCES PROCEDURE(ProcedureID),
+    FOREIGN KEY (Supervising_Dentist_ID) REFERENCES PERSON(PersonID)
+);
+
+
+-- This is the “extra” entity for PART 1
+CREATE TABLE Insurance_Company (
+    Insurance_Company_ID INT PRIMARY KEY,
+    Company_Name VARCHAR(50) NOT NULL,
+    Email VARCHAR(50)
+);
+
+
+
+

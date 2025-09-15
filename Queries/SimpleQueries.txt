@@ -1,0 +1,128 @@
+-- 4a
+SELECT 
+    p.first_name,
+    p.last_name,
+    m.name AS medication_name,
+    pm.date_prescribed,
+    m.dosage
+FROM 
+    PERSON p
+JOIN 
+    PATIENT_MEDICATIONS pm ON p.Person_ID = pm.patient_id
+JOIN 
+    MEDICATIONS m ON pm.medication_id = m.medication_id
+ORDER BY 
+    p.last_name ASC, 
+    m.name ASC;
+
+-- 4b
+SELECT 
+    PERSON.First_Name, 
+    PERSON.Last_Name, 
+    PERSON.Email, 
+    PERSON.Address, 
+    PERSON.Phone, 
+    PERSON.Date_of_Birth, 
+    PERSON.Gender
+FROM 
+    INSURANCE
+JOIN 
+    PERSON ON INSURANCE.Person_ID = PERSON.Person_ID
+WHERE 
+    INSURANCE.Insurance_Company = 'Delta Dental';
+
+-- 4c
+SELECT PROCEDURE_RECORD.appointment_id, procedure_name, APPOINTMENT.Appointment_Date FROM (
+  PROCEDURE JOIN PROCEDURE_RECORD JOIN APPOINTMENT
+  ON PROCEDURE_RECORD.Supervising_Dentist_ID = 101 
+  AND PROCEDURE_RECORD.Procedure_Record_ID = PROCEDURE.Procedure_Record_ID
+  AND APPOINTMENT.Appointment_ID = PROCEDURE_RECORD.Appointment_ID);
+
+
+
+-- 4d
+SELECT 
+    INVOICE.Invoice_ID,
+    INVOICE.Invoice_Due_Date,
+    INVOICE.Amount_Due,
+    PERSON.First_Name,
+    PERSON.Last_Name,
+    PERSON.Phone,
+    PERSON.Email
+FROM 
+    INVOICE
+JOIN 
+    APPOINTMENT ON INVOICE.Appointment_ID = APPOINTMENT.Appointment_ID
+JOIN 
+    PERSON ON APPOINTMENT.Supervising_Dentist = PERSON.Person_ID
+WHERE 
+    INVOICE.Amount_Due > 10 
+    AND DATE(INVOICE.Date_of_Billing) > DATE(INVOICE.Invoice_Due_Date, '+30 days')
+    AND INVOICE.Invoice_Status = 'Unpaid';
+
+-- 4e
+SELECT 
+    p.first_name,
+    p.last_name,
+    SUM(r.revenue_amount) AS total_revenue
+FROM 
+    REVENUE r
+JOIN 
+    PERSON p ON r.patient_id = p.Person_ID
+WHERE 
+    r.date_of_service >= date('now', '-1 year')
+GROUP BY 
+    p.Person_ID, p.first_name, p.last_name
+ORDER BY 
+    total_revenue DESC
+LIMIT 3;
+
+-- 4f
+SELECT 
+    PR.Supervising_Dentist_ID, 
+    P.First_Name, 
+    P.Last_Name, 
+    COUNT(PR.Procedure_ID) AS Total_Procedures
+FROM 
+    PROCEDURE_RECORD PR
+JOIN 
+    PERSON P
+ON 
+    PR.Supervising_Dentist_ID = P.Person_ID
+GROUP BY 
+    PR.Supervising_Dentist_ID, P.First_Name, P.Last_Name
+HAVING 
+    COUNT(PR.Procedure_ID) < 5;
+
+
+
+
+-- 4g
+SELECT procedure_name, COUNT(procedure_name), per_unit_charge FROM PROCEDURE
+GROUP BY procedure_name
+ORDER BY per_unit_charge DESC;
+
+-- 4h
+SELECT 
+    Payment_Type,
+    COUNT(Payment_ID) AS Number_of_Uses,
+    SUM(Amount_Paid) AS Total_Amount_Charged
+FROM 
+    PAYMENT
+GROUP BY 
+    Payment_Type;
+
+-- 4i
+SELECT 
+    ip.plan_name,
+    COUNT(i.Person_ID) AS number_of_patients
+FROM 
+    INSURANCE i
+JOIN 
+    INSURANCE_PLANS ip ON i.insurance_policy_id = ip.insurance_plan_id
+GROUP BY 
+    ip.insurance_plan_id
+ORDER BY 
+    number_of_patients DESC
+LIMIT 1;
+

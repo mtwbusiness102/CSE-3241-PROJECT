@@ -1,0 +1,36 @@
+-- 5a: Patients with the highest total cost of procedures over a year
+SELECT P.First_Name, P.Last_Name, SUM(I.Total) AS Total_Paid
+FROM APPOINTMENT A
+JOIN PERSON P ON A.Supervising_Dentist = P.Person_ID
+JOIN INVOICE I ON A.Appointment_ID = I.Appointment_ID
+WHERE A.Appointment_Date > '2024-06-01'
+GROUP BY P.First_Name, P.Last_Name
+ORDER BY Total_Paid DESC;
+
+-- 5b: Allergies for patients who’s last X-ray date was before October, aged 27
+SELECT 
+    allergy_info, 
+    COUNT(allergy_info) 
+FROM 
+    MEDICAL_HISTORY 
+JOIN 
+    PERSON ON MEDICAL_HISTORY.Patient_ID = PERSON.Person_ID
+WHERE 
+    last_x_ray_date < '2024-10-01' 
+    AND PERSON.Date_of_Birth = '1996-01-01'
+GROUP BY 
+    allergy_info;
+
+
+-- 5c: extra entity from part 1 
+SELECT 
+    P.First_Name,
+    P.Last_Name,
+    I.Insurance_Company
+FROM 
+    PERSON P
+JOIN 
+    INSURANCE I ON P.Person_ID = I.Person_ID;
+
+
+
